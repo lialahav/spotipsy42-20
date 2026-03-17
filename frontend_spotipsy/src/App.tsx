@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import type { Song } from "./assets/types.tsx";
-
+import List from '@mui/material/List';
+import Paper from '@mui/material/Paper';
 import './App.css'
 
 const App :React.FC= () =>{
@@ -43,11 +44,25 @@ const App :React.FC= () =>{
       {error && <p>{error}</p>}
 
       {/*display songs*/}
-      {!isLoading && !error && songsList.map((song, index) =>(
-        <div key={index}>
-          <h2>{song.name}</h2>
-        </div>
-      ))}
+                {!isLoading && !error && songsList.map((song, index) =>(
+            <div key={index}>
+              <h2>{song.name}</h2>
+            </div>
+          ))}
+      <Paper style={{maxHeight: 50, overflow: 'auto'}}>
+        <List>
+          <p>hello</p>
+          <p>there</p>
+          <p>hello</p>
+          <p>there</p>
+          <p>hello</p>
+          <p>there</p>
+          <p>hello</p>
+          <p>there</p>
+          <p>hello</p>
+          <p>there</p>
+        </List>
+      </Paper>
     </div>
   )
 }
