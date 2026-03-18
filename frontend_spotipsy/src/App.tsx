@@ -19,7 +19,7 @@ const App: React.FC = () => {
   const [isFavoritesLoading, setIsFavoritesLoading] = useState(false);
   const [isPlaylistsLoading, setIsPlaylistsLoading] = useState(false);
 
-  const [error, setError] = useState<string>();
+  const [error, setError] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<string>('songs');
 
 
@@ -103,7 +103,7 @@ const App: React.FC = () => {
 
         <div className={classes.mainSection}>
           <PageContent currentPage = {currentPage} songsList = {songsList} favoriteSongsListId = {favoriteSongsListId} playlistsList ={playlistsList}
-          setPlayListsList = {setPlayListsList}
+          setPlayListsList = {setPlayListsList} isSongsLoading = {isSongsLoading} error = {error}
           />
           <Sidebar onChange={(value) => {setCurrentPage(value)}}/>
         </div>

@@ -12,7 +12,11 @@ const PlaylistItem: React.FC<props> = ({ name, songsCount}:props) => {
     return (
         <div className={classes.itemContainer}>
             <ListItem>
-                    <ListItemText primary={name} secondary={songsCount + 'שירים'}/>
+                    <ListItemText primary={name} secondary={
+                        <span style={{ direction: 'rtl', display: 'inline-block' }}>
+                            {songsCount} שירים
+                        </span>
+                    }/>
             </ListItem>
         </div>
     )
