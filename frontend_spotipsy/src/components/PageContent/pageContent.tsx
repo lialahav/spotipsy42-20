@@ -21,7 +21,7 @@ const PageContent: React.FC<props> = ({ currentPage, songsList, favoriteSongsLis
         <div className={classes.container}>
             {currentPage == 'songs' && <AllSongs songsList ={songsList} isSongsLoading= {isSongsLoading} error = {error}/>}
 
-            {currentPage == 'playlists' && <PlaylistsPage playlistsList = {playlistsList} setPlayListsList = {setPlayListsList}/>}
+            {currentPage == 'playlists' && <PlaylistsPage playlistsList = {playlistsList} setPlayListsList = {setPlayListsList} songsList= {songsList}/>}
 
             {currentPage == 'favorites' && <FavoritePage songsList = {songsList} favoriteSongsListId = {favoriteSongsListId}/>}
         </div>
