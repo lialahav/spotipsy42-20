@@ -27,11 +27,14 @@ const PageContent: React.FC<props> = ({ currentPage, songsList, favoriteSongsLis
              favoriteSongsListId={favoriteSongsListId} setFavoriteSongsIdList={setFavoriteSongsIdList} setError={setError}
             />}
 
-            {currentPage == 'playlists' && <PlaylistsPage playlistsList = {playlistsList} setPlayListsList = {setPlayListsList} songsList= {songsList}/>}
+            {currentPage == 'playlists' && <PlaylistsPage playlistsList = {playlistsList} 
+            setPlayListsList = {setPlayListsList} songsList= {songsList} favoriteSongsListId={favoriteSongsListId} setFavoriteSongsIdList={setFavoriteSongsIdList} setError={setError}/>}
 
-            {currentPage == 'favorites' && <FavoritePage songsList = {songsList} favoriteSongsListId = {favoriteSongsListId} setFavoriteSongsIdList={setFavoriteSongsIdList} setError={setError}/>}
+            {currentPage == 'favorites' && <FavoritePage songsList = {songsList} favoriteSongsListId = {favoriteSongsListId} 
+            setFavoriteSongsIdList={setFavoriteSongsIdList} setError={setError}/>}
         </div>
     )   
 }
+
 
 export default PageContent;

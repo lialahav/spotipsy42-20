@@ -11,9 +11,12 @@ interface props {
     playlistsList: Playlist[];
     setPlayListsList: (value:Playlist[]) => void;
     songsList: Song[];
+    favoriteSongsListId: string[];
+    setFavoriteSongsIdList:React.Dispatch<React.SetStateAction<string[]>>;
+    setError: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const PlaylistsPage: React.FC<props> = ({ playlistsList, setPlayListsList, songsList}: props) => {
+const PlaylistsPage: React.FC<props> = ({ playlistsList, setPlayListsList, songsList, favoriteSongsListId, setFavoriteSongsIdList ,setError}: props) => {
     const {classes} = useStyles();
     const [currentPlaylist, setCurrentPlaylist] = useState<Playlist | false>(false);
 
@@ -47,7 +50,8 @@ const PlaylistsPage: React.FC<props> = ({ playlistsList, setPlayListsList, songs
                     </div>
                     <div className={classes.listContainer}>
                         
-                        {<SongsTable songsList={songsList.filter(song => currentPlaylist.songIds.includes(song.id))} />}
+                        {<SongsTable songsList={songsList.filter(song => currentPlaylist.songIds.includes(song.id))} favoriteSongsListId={favoriteSongsListId}
+                         setFavoriteSongsIdList={setFavoriteSongsIdList} setError={setError}/>}
                     </div>
 
                 </div>
