@@ -8,16 +8,17 @@ interface props {
     songsList: Song[];
     favoriteSongsListId: string[];
     playlistsList: Playlist[];
+    setPlayListsList: (value:Playlist[]) => void;
 }
 
-const PageContent: React.FC<props> = ({ currentPage, songsList, favoriteSongsListId, playlistsList}: props) => {
+const PageContent: React.FC<props> = ({ currentPage, songsList, favoriteSongsListId, playlistsList, setPlayListsList}: props) => {
     const { classes } = useStyles();
 
     return (
         <div className={classes.container}>
             {/* {currentPage == 'songs' && <AllSongsPage songsList = {songsList}/>} */}
 
-            {currentPage == 'playlists' && <PlaylistsPage playlistsList = {playlistsList} />}
+            {currentPage == 'playlists' && <PlaylistsPage playlistsList = {playlistsList} setPlayListsList = {setPlayListsList}/>}
 
             {currentPage == 'favorites' && <FavoritePage songsList = {songsList} favoriteSongsListId = {favoriteSongsListId}/>}
         </div>

@@ -74,7 +74,7 @@ const App: React.FC = () => {
         setIsPlaylistsLoading(true);
     try{
 
-      const response = await fetch("http://127.0.0.1:5001/api/favorites")
+      const response = await fetch("http://127.0.0.1:5001/api/playlists")
       const data = await response.json();
       setPlayListsList(data);
     } 
@@ -95,30 +95,15 @@ const App: React.FC = () => {
   }, []);
 
 
-// return (
-//     <div>
-//       {/* display loading texst incase info still loading
-//       {isFavoritesLoading && <p>Loading...</p>}
-
-//       {/*display error*/}
-//       {error && <p>{error}</p>}
-
-//       {/*display songs*/}
-//       {!isFavoritesLoading && !error && favoriteSongsListId.map((song, index) =>(
-//         <div key={index}>
-//           <h2>{song}</h2>
-//         </div>
-//       ))} */}
-//     </div>
-//   )
-// }
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.mainContainer}>
         <Header />
 
         <div className={classes.mainSection}>
-          <PageContent currentPage = {currentPage} songsList = {songsList} favoriteSongsListId = {favoriteSongsListId} playlistsList ={playlistsList}/>
+          <PageContent currentPage = {currentPage} songsList = {songsList} favoriteSongsListId = {favoriteSongsListId} playlistsList ={playlistsList}
+          setPlayListsList = {setPlayListsList}
+          />
           <Sidebar onChange={(value) => {setCurrentPage(value)}}/>
         </div>
 
