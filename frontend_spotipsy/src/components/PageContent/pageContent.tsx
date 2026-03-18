@@ -10,14 +10,16 @@ interface props {
     favoriteSongsListId: string[];
     playlistsList: Playlist[];
     setPlayListsList: (value:Playlist[]) => void;
+    isSongsLoading: boolean;
+    error: string;
 }
 
-const PageContent: React.FC<props> = ({ currentPage, songsList, favoriteSongsListId, playlistsList, setPlayListsList}: props) => {
+const PageContent: React.FC<props> = ({ currentPage, songsList, favoriteSongsListId, playlistsList, setPlayListsList, isSongsLoading, error }: props) => {
     const { classes } = useStyles();
 
     return (
         <div className={classes.container}>
-            {currentPage == 'songs' && <AllSongs/>}
+            {currentPage == 'songs' && <AllSongs songsList ={songsList} isSongsLoading= {isSongsLoading} error = {error}/>}
 
             {currentPage == 'playlists' && <PlaylistsPage playlistsList = {playlistsList} setPlayListsList = {setPlayListsList}/>}
 
