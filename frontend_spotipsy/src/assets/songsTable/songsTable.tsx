@@ -1,4 +1,3 @@
-import MakeSong from "../makeSong/makeSong.tsx";
 import { List } from '@mui/material';
 import { ListItem } from '@mui/material';
 import { PlayArrow } from '@mui/icons-material'
@@ -7,6 +6,9 @@ import { Paper } from '@mui/material'
 import { FavoriteBorder } from '@mui/icons-material'
 import { Add } from '@mui/icons-material'
 import type { Song } from "C:/Users/nir_l/OneDrive/Desktop/army/spotipsy42-20/frontend_spotipsy/src/assets/types.tsx";
+import { ListItemText }from '@mui/material'
+
+
 interface Props{
     songsList:Song[]
 }
@@ -22,7 +24,10 @@ const SongsTable = (props:Props) =>{
                 <ListItemIcon>
                 <PlayArrow></PlayArrow>
                 </ListItemIcon>
-                <MakeSong song={song}/>
+                    <ListItemText 
+                    primary={`${song.name} ${song.artist}` }
+                    sx={{ margin: 0 }}/>
+
                 <FavoriteBorder></FavoriteBorder>
                 <Add></Add>
             </ListItem>
