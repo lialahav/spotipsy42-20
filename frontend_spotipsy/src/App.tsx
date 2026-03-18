@@ -1,3 +1,4 @@
+import AllSongs from './assets/allSongs/allSongs'
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme';
 import Header from './components/Header/header';
@@ -94,9 +95,10 @@ const App: React.FC = () => {
     fetchPlaylists();
   }, []);
 
-
   return (
     <ThemeProvider theme={theme}>
+
+
       <div className={classes.mainContainer}>
         <Header />
 

@@ -2,6 +2,7 @@ import useStyles from "./pageContentStyles";
 import type { Song, Playlist} from "../../assets/types";
 import FavoritePage from "../FavoritePage/FavoritePage";
 import PlaylistsPage from "../PlaylistsPage/PlaylistsPage";
+import AllSongs from "../../assets/allSongs/allSongs";
 
 interface props {
     currentPage: string;
@@ -16,7 +17,7 @@ const PageContent: React.FC<props> = ({ currentPage, songsList, favoriteSongsLis
 
     return (
         <div className={classes.container}>
-            {/* {currentPage == 'songs' && <AllSongsPage songsList = {songsList}/>} */}
+            {currentPage == 'songs' && <AllSongs/>}
 
             {currentPage == 'playlists' && <PlaylistsPage playlistsList = {playlistsList} setPlayListsList = {setPlayListsList}/>}
 
