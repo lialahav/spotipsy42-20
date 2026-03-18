@@ -15,7 +15,7 @@ const App: React.FC = () => {
   const [isFavoritesLoading, setIsFavoritesLoading] = useState(false);
   const [error, setError] = useState<string>();
   const [currentPage, setCurrentPage] = useState<string>('songs');
-  const [favoriteSongsList, setFavoriteSongsList] = useState<string[]>([]);
+  const [favoriteSongsListId, setFavoriteSongsIdList] = useState<string[]>([]);
 
 
   /**
@@ -49,7 +49,7 @@ const App: React.FC = () => {
 
       const response = await fetch("http://127.0.0.1:5001/api/favorites")
       const data = await response.json();
-      setFavoriteSongsList(data);
+      setFavoriteSongsIdList(data);
     } 
     catch (error){
       setError("Someting went wrong");
@@ -69,18 +69,18 @@ const App: React.FC = () => {
 
 // return (
 //     <div>
-//       {/*display loading texst incase info still loading*/}
+//       {/* display loading texst incase info still loading
 //       {isFavoritesLoading && <p>Loading...</p>}
 
 //       {/*display error*/}
 //       {error && <p>{error}</p>}
 
 //       {/*display songs*/}
-//       {!isFavoritesLoading && !error && favoriteSongsList.map((song, index) =>(
+//       {!isFavoritesLoading && !error && favoriteSongsListId.map((song, index) =>(
 //         <div key={index}>
 //           <h2>{song}</h2>
 //         </div>
-//       ))}
+//       ))} */}
 //     </div>
 //   )
 // }
@@ -90,7 +90,7 @@ const App: React.FC = () => {
         <Header />
 
         <div className={classes.mainSection}>
-          <PageContent/>
+          <PageContent currentPage = {currentPage} songsList = {songsList} favoriteSongsListId = {favoriteSongsListId}/>
           <Sidebar onChange={(value) => {setCurrentPage(value)}}/>
         </div>
 
