@@ -9,6 +9,7 @@ const theme = createTheme({
         background: {
             default: 'rgba(20, 20, 20, 1)',
         },
+        
   },
 });
 

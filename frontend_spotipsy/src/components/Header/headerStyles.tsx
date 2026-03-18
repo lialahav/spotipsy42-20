@@ -1,6 +1,6 @@
 import { makeStyles } from "tss-react/mui";
 
-const useStyles = makeStyles()({
+const useStyles = makeStyles()((theme) => ({
     container: {
         backgroundColor: 'rgba(59, 59, 59, 1)',
         width: '100%',
@@ -16,10 +16,10 @@ const useStyles = makeStyles()({
         display: 'flex',
         justifyContent: 'flex-end',
         alignItems: 'center',
-        color: '#943ba3ff',
+        color: theme.palette.primary.main,
         
     }
 
-});
+}));
 
 export default useStyles;

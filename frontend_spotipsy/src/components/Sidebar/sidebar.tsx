@@ -3,13 +3,17 @@ import HomeIcon from '@mui/icons-material/Home';
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
-const Sidebar: React.FC = () => {
+interface props {
+    onChange: (value: string)=> void; 
+}
+
+const Sidebar: React.FC<props> = ({onChange}: props) => {
     const { classes } = useStyles();
 
 
     return (
-        <div className={classes.container}>
-            <div className={classes.allSongsButton}>
+        <div className={classes.container} >
+            <div className={classes.allSongsButton} onClick={() => onChange('songs')}>
                 <div className={classes.text}>
                     <span>כל השירים</span>
                 </div>
@@ -19,7 +23,7 @@ const Sidebar: React.FC = () => {
                 </div>
             </div>
 
-            <div className={classes.allSongsButton}>
+            <div className={classes.allSongsButton} onClick={() => onChange('playlists')}>
                 <div className={classes.text}>
                     <span>פלייליסטים</span>
                 </div>
@@ -29,7 +33,7 @@ const Sidebar: React.FC = () => {
                 </div>
             </div>
 
-            <div className={classes.allSongsButton}>
+            <div className={classes.allSongsButton} onClick={() => onChange('favorites')}>
                 <div className={classes.text}>
                     <span>מועדפים</span>
                 </div>
