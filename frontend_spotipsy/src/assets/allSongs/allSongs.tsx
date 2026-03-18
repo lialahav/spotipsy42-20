@@ -6,9 +6,12 @@ interface Props {
     isSongsLoading: boolean;
     error: string;
     songsList: Song[];
+    favoriteSongsListId: string[];
+    setFavoriteSongsIdList:React.Dispatch<React.SetStateAction<string[]>>;
+    setError: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const AllSongs:React.FC<Props>= ({songsList,  isSongsLoading, error}: Props) =>{
+const AllSongs:React.FC<Props>= ({songsList,  isSongsLoading, error, favoriteSongsListId, setFavoriteSongsIdList, setError}: Props) =>{
     return(
         <>
         {/*display loading texst incase info still loading*/}
@@ -19,7 +22,7 @@ const AllSongs:React.FC<Props>= ({songsList,  isSongsLoading, error}: Props) =>{
 
         {/*display songs*/}
         {!isSongsLoading && !error && (
-            <SongsTable songsList={songsList}/>
+            <SongsTable songsList={songsList} favoriteSongsListId={favoriteSongsListId} setFavoriteSongsIdList={setFavoriteSongsIdList} setError={setError}/>
         )}
     </>
     )

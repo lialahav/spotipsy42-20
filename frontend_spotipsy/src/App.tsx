@@ -103,7 +103,7 @@ const App: React.FC = () => {
 
         <div className={classes.mainSection}>
           <PageContent currentPage = {currentPage} songsList = {songsList} favoriteSongsListId = {favoriteSongsListId} playlistsList ={playlistsList}
-          setPlayListsList = {setPlayListsList} isSongsLoading = {isSongsLoading} error = {error}
+          setPlayListsList = {setPlayListsList} isSongsLoading = {isSongsLoading} error = {error} setFavoriteSongsIdList={setFavoriteSongsIdList} setError = {setError}
           />
           <Sidebar onChange={(value) => {setCurrentPage(value)}}/>
         </div>

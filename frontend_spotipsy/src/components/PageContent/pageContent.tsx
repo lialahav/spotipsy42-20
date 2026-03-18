@@ -12,20 +12,26 @@ interface props {
     setPlayListsList: (value:Playlist[]) => void;
     isSongsLoading: boolean;
     error: string;
+    setFavoriteSongsIdList:React.Dispatch<React.SetStateAction<string[]>>;
+    setError: React.Dispatch<React.SetStateAction<string>>;
+
+
 }
 
-const PageContent: React.FC<props> = ({ currentPage, songsList, favoriteSongsListId, playlistsList, setPlayListsList, isSongsLoading, error }: props) => {
+const PageContent: React.FC<props> = ({ currentPage, songsList, favoriteSongsListId, playlistsList, setPlayListsList, isSongsLoading, error, setFavoriteSongsIdList, setError}: props) => {
     const { classes } = useStyles();
 
     return (
         <div className={classes.container}>
-            {currentPage == 'songs' && <AllSongs songsList ={songsList} isSongsLoading= {isSongsLoading} error = {error}/>}
+            {currentPage == 'songs' && <AllSongs songsList ={songsList} isSongsLoading= {isSongsLoading} error = {error}
+             favoriteSongsListId={favoriteSongsListId} setFavoriteSongsIdList={setFavoriteSongsIdList} setError={setError}
+            />}
 
             {currentPage == 'playlists' && <PlaylistsPage playlistsList = {playlistsList} setPlayListsList = {setPlayListsList}/>}
 
-            {currentPage == 'favorites' && <FavoritePage songsList = {songsList} favoriteSongsListId = {favoriteSongsListId}/>}
+            {currentPage == 'favorites' && <FavoritePage songsList = {songsList} favoriteSongsListId = {favoriteSongsListId} setFavoriteSongsIdList={setFavoriteSongsIdList} setError={setError}/>}
         </div>
-    )
+    )   
 }
 
 export default PageContent;
