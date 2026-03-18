@@ -6,21 +6,23 @@ import Sidebar from './components/Sidebar/sidebar';
 import PageContent from './components/PageContent/pageContent';
 import useStyles from './AppStyles';
 import React, { useState, useEffect } from 'react'
-import type { Song } from "./assets/types.tsx";
+import type { Song} from "./assets/types.tsx";
 
 const App: React.FC = () => {
   const { classes} = useStyles();
   const [songsList, setSongsList] = useState<Song[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSongsLoading, setIsSongsLoading] = useState(false);
+  const [isFavoritesLoading, setIsFavoritesLoading] = useState(false);
   const [error, setError] = useState<string>();
   const [currentPage, setCurrentPage] = useState<string>('songs');
+  const [favoriteSongsList, setFavoriteSongsList] = useState<string[]>([]);
 
 
   /**
-   * async function to fetch songs
+   * Async function to fetch all songs
    */
   const fetchSongs = async () => {
-    setIsLoading(true);
+    setIsSongsLoading(true);
     try{
 
       const response = await fetch("http://127.0.0.1:5001/api/songs")
@@ -33,26 +35,50 @@ const App: React.FC = () => {
       return;
     }
     finally {
-      setIsLoading(false);
+      setIsSongsLoading(false);
     }
   };
+
+  /**
+   * Async function to fetch all the ids of the favorite songs
+   * @returns 
+   */
+  const fetchFavoriteSongs = async () => {
+        setIsFavoritesLoading(true);
+    try{
+
+      const response = await fetch("http://127.0.0.1:5001/api/favorites")
+      const data = await response.json();
+      setFavoriteSongsList(data);
+    } 
+    catch (error){
+      setError("Someting went wrong");
+      console.error(error);
+      return;
+    }
+    finally {
+      setIsFavoritesLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchSongs();
+    fetchFavoriteSongs();
   }, []);
 
 
 // return (
 //     <div>
 //       {/*display loading texst incase info still loading*/}
-//       {isLoading && <p>Loading...</p>}
+//       {isFavoritesLoading && <p>Loading...</p>}
 
 //       {/*display error*/}
 //       {error && <p>{error}</p>}
 
 //       {/*display songs*/}
-//       {!isLoading && !error && songsList.map((song, index) =>(
+//       {!isFavoritesLoading && !error && favoriteSongsList.map((song, index) =>(
 //         <div key={index}>
-//           <h2>{song.name}</h2>
+//           <h2>{song}</h2>
 //         </div>
 //       ))}
 //     </div>
