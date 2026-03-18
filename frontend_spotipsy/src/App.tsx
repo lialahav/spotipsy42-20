@@ -6,16 +6,22 @@ import Sidebar from './components/Sidebar/sidebar';
 import PageContent from './components/PageContent/pageContent';
 import useStyles from './AppStyles';
 import React, { useState, useEffect } from 'react'
-import type { Song} from "./assets/types.tsx";
+import type { Song, Playlist} from "./assets/types.tsx";
 
 const App: React.FC = () => {
   const { classes} = useStyles();
+
   const [songsList, setSongsList] = useState<Song[]>([]);
+  const [favoriteSongsListId, setFavoriteSongsIdList] = useState<string[]>([]);
+  const [playlistsList, setPlayListsList] = useState<Playlist[]>([]);
+
   const [isSongsLoading, setIsSongsLoading] = useState(false);
   const [isFavoritesLoading, setIsFavoritesLoading] = useState(false);
+  const [isPlaylistsLoading, setIsPlaylistsLoading] = useState(false);
+
   const [error, setError] = useState<string>();
   const [currentPage, setCurrentPage] = useState<string>('songs');
-  const [favoriteSongsListId, setFavoriteSongsIdList] = useState<string[]>([]);
+
 
 
   /**
@@ -61,9 +67,31 @@ const App: React.FC = () => {
     }
   };
 
+  /**
+   * Async function to fetch all the playlists 
+   */
+  const fetchPlaylists = async () => {
+        setIsPlaylistsLoading(true);
+    try{
+
+      const response = await fetch("http://127.0.0.1:5001/api/favorites")
+      const data = await response.json();
+      setPlayListsList(data);
+    } 
+    catch (error){
+      setError("Someting went wrong");
+      console.error(error);
+      return;
+    }
+    finally {
+      setIsPlaylistsLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchSongs();
     fetchFavoriteSongs();
+    fetchPlaylists();
   }, []);
 
 
@@ -90,7 +118,7 @@ const App: React.FC = () => {
         <Header />
 
         <div className={classes.mainSection}>
-          <PageContent currentPage = {currentPage} songsList = {songsList} favoriteSongsListId = {favoriteSongsListId}/>
+          <PageContent currentPage = {currentPage} songsList = {songsList} favoriteSongsListId = {favoriteSongsListId} playlistsList ={playlistsList}/>
           <Sidebar onChange={(value) => {setCurrentPage(value)}}/>
         </div>
 

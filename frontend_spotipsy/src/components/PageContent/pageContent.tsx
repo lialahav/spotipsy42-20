@@ -1,21 +1,22 @@
 import useStyles from "./pageContentStyles";
-import type { Song} from "../../assets/types";
+import type { Song, Playlist} from "../../assets/types";
 import FavoritePage from "../FavoritePage/FavoritePage";
 
 interface props {
     currentPage: string;
     songsList: Song[];
     favoriteSongsListId: string[];
+    playlistsList: Playlist[];
 }
 
-const PageContent: React.FC<props> = ({ currentPage, songsList, favoriteSongsListId}: props) => {
+const PageContent: React.FC<props> = ({ currentPage, songsList, favoriteSongsListId, playlistsList}: props) => {
     const { classes } = useStyles();
 
     return (
         <div className={classes.container}>
             {currentPage == 'songs' && <AllSongsPage songsList = {songsList}/>}
 
-            {currentPage == 'playlists'}
+            {currentPage == 'playlists' && <PlaylistsPage playlistsList = {playlistsList} />}
 
             {currentPage == 'favorites' && <FavoritePage songsList = {songsList} favoriteSongsListId = {favoriteSongsListId}/>}
         </div>
