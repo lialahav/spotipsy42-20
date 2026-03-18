@@ -1,3 +1,8 @@
+import React from 'react'
+import './App.css'
+import AllSongs from './assets/allSongs/allSongs'
+
+
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme';
 import Header from './components/Header/header';
@@ -66,26 +71,11 @@ const App: React.FC = () => {
     fetchFavoriteSongs();
   }, []);
 
-
-// return (
-//     <div>
-//       {/* display loading texst incase info still loading
-//       {isFavoritesLoading && <p>Loading...</p>}
-
-//       {/*display error*/}
-//       {error && <p>{error}</p>}
-
-//       {/*display songs*/}
-//       {!isFavoritesLoading && !error && favoriteSongsListId.map((song, index) =>(
-//         <div key={index}>
-//           <h2>{song}</h2>
-//         </div>
-//       ))} */}
-//     </div>
-//   )
-// }
   return (
     <ThemeProvider theme={theme}>
+      <div>
+        <AllSongs/>
+      </div>
       <div className={classes.mainContainer}>
         <Header />
 

@@ -1,0 +1,16 @@
+.song{
+    display: inline;
+    width: 100%;
+}
+.songInfo{
+    display: inline;
+
+}
+.addAndLike{
+    display: inline;
+
+}
+.songContainer{
+    display: flex;
+    direction: ltr;
+}
