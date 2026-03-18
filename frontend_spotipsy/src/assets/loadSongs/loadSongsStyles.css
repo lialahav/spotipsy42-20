@@ -1,7 +1,0 @@
-.songsContainer{
-    display: flex;
-    flex-direction: column;
-}
-.songContainer{
-    display: inline;
-}

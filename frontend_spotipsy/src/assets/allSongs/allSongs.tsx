@@ -1,19 +1,24 @@
-import LoadSongs from "../loadSongs/loadSongs";
 import React from 'react'
 import SongsTable from "../songsTable/songsTable.tsx";
+import type { Song } from "../types.tsx";
 
-const AllSongs:React.FC= () =>{
-    const {songsList, isLoading, error} = LoadSongs()
+interface Props {
+    isSongsLoading: boolean;
+    error: string;
+    songsList: Song[];
+}
+
+const AllSongs:React.FC<Props>= ({songsList,  isSongsLoading, error}: Props) =>{
     return(
         <>
         {/*display loading texst incase info still loading*/}
-        {isLoading && <p>Loading...</p>}
+        {isSongsLoading && <p>Loading...</p>}
 
         {/*display error*/}
         {error && <p>{error}</p>}
 
         {/*display songs*/}
-        {!isLoading && !error && (
+        {!isSongsLoading && !error && (
             <SongsTable songsList={songsList}/>
         )}
     </>
