@@ -4,17 +4,74 @@ import { PlayArrow } from '@mui/icons-material'
 import { ListItemIcon } from '@mui/material';
 import { Paper } from '@mui/material'
 import { FavoriteBorder } from '@mui/icons-material'
+import { Favorite } from '@mui/icons-material'
 import { Add } from '@mui/icons-material'
 import type { Song } from "../types";
 import { ListItemText }from '@mui/material'
+import { Button } from '@mui/material'
+import { useState } from 'react';
 
 
 interface Props{
-    songsList:Song[]
+    songsList:Song[];    
+    favoriteSongsListId: string[];
+    setFavoriteSongsIdList:React.Dispatch<React.SetStateAction<string[]>>;
+    setError: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const SongsTable = (props:Props) =>{
+    
+    const handleFavoritRequest = (id:string) =>{
+        if(props.favoriteSongsListId.includes(id)){
+            handleremovePostRequest(id)
+        }
+        else{
+            handleAddPostRequest(id)
+        }
+    }
+    
+    //remove song from data in backend and fetch
+    const handleremovePostRequest = async (id:string) => {
+        try{
+            const response = await fetch("http://127.0.0.1:5001/api/favorites/remove", {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({'songId':id})
+            });
 
+            const favorites_data = await response.json();
+            props.setFavoriteSongsIdList(favorites_data);
+        } 
+        catch (error){
+            props.setError("Someting went wrong");
+            console.error(error);
+            return;
+        }
+    }
+
+    //add song to data in backend and fetch
+    const handleAddPostRequest = async (id:string) => {
+        try{
+            const response = await fetch("http://127.0.0.1:5001/api/favorites/add", {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({'songId':id})
+            });
+
+            const favorites_data = await response.json();
+            props.setFavoriteSongsIdList(favorites_data);
+        } 
+        catch (error){
+            props.setError("Someting went wrong");
+            console.error(error);
+            return;
+        }
+    }
+    
     return(
     <>
         <Paper style={{maxHeight: 600, overflow: 'auto'}}>
@@ -27,8 +84,15 @@ const SongsTable = (props:Props) =>{
                     <ListItemText 
                     primary={`${song.name} ${song.artist}` }
                     sx={{ margin: 0 }}/>
+                <Button onClick={() =>handleFavoritRequest(song.id)}>
+                    {props.favoriteSongsListId.includes(song.id) &&
+                        <Favorite></Favorite>
+                    }
+                    {!props.favoriteSongsListId.includes(song.id) &&
+                        <FavoriteBorder></FavoriteBorder>
+                    }
+                </Button>
 
-                <FavoriteBorder></FavoriteBorder>
                 <Add></Add>
             </ListItem>
           ))}
