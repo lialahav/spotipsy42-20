@@ -75,7 +75,7 @@ const App: React.FC = () => {
         <Header />
 
         <div className={classes.mainSection}>
-          <PageContent currentPage = {currentPage} songsList = {songsList} favoriteSongsListId = {favoriteSongsListId}/>
+          <PageContent currentPage = {currentPage} songsList = {songsList} favoriteSongsListId = {favoriteSongsListId} />
           <Sidebar onChange={(value) => {setCurrentPage(value)}}/>
         </div>
 
