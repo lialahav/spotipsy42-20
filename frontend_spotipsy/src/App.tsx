@@ -1,8 +1,4 @@
-import React from 'react'
-import './App.css'
 import AllSongs from './assets/allSongs/allSongs'
-
-
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme';
 import Header from './components/Header/header';
@@ -73,9 +69,8 @@ const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div>
-        <AllSongs/>
-      </div>
+
+
       <div className={classes.mainContainer}>
         <Header />
 
