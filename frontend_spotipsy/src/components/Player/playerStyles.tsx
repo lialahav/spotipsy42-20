@@ -34,7 +34,7 @@ const useStyles = makeStyles()({
         
     },
     sliderContainer: {
-        width: '97%'
+        width: '97%',
     }
 
 

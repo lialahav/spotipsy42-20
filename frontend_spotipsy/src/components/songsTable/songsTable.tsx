@@ -5,11 +5,11 @@ import { Paper } from '@mui/material'
 import { FavoriteBorder } from '@mui/icons-material'
 import { Favorite } from '@mui/icons-material'
 import { Add } from '@mui/icons-material'
-import type { Song } from "../types";
+import type { Song } from "../../assets/types";
 import { ListItemText }from '@mui/material'
 import { Button , IconButton, Menu, MenuItem} from '@mui/material'
 import { useState } from 'react';
-import type { Playlist } from '../types';
+import type { Playlist } from '../../assets/types';
 import useStyles from './songsTableStyles';
 import theme from '../../theme';
 
@@ -138,7 +138,7 @@ const SongsTable = (props:Props) =>{
     
     return(
     <>
-        <Paper style={{maxHeight: 700, overflow: 'auto'}}>
+        <Paper style={{maxHeight: 600, overflow: 'auto'}}>
         <List className={classes.songsContainer}>
             {props.songsList.map((song, index) =>(
             <ListItem onClick={() => handlePlayer(song)} divider key={index} sx={{ display: 'flex', flexDirection: 'row', padding: 0}}>
@@ -153,10 +153,10 @@ const SongsTable = (props:Props) =>{
                 </IconButton>
                 <Button onClick={() =>handleFavoritRequest(song.id)}>
                     {props.favoriteSongsListId.includes(song.id) &&
-                        <Favorite></Favorite>
+                        <Favorite />
                     }
                     {!props.favoriteSongsListId.includes(song.id) &&
-                        <FavoriteBorder></FavoriteBorder>
+                        <FavoriteBorder />
                     }
                 </Button>
             </ListItem>
