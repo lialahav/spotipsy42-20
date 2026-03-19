@@ -11,7 +11,7 @@ const useStyles = makeStyles()({
     },
     mainSection: {
         width: '100%',
-        height: '86%',
+        height: '84%',
         display: 'flex'
     }
 
