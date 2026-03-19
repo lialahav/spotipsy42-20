@@ -1,6 +1,7 @@
 import React from 'react'
 import SongsTable from "../songsTable/songsTable.tsx";
 import type { Song } from "../types.tsx";
+import useStyles from './allsongsStyles.tsx';
 
 interface Props {
     isSongsLoading: boolean;
@@ -12,6 +13,8 @@ interface Props {
 }
 
 const AllSongs:React.FC<Props>= ({songsList,  isSongsLoading, error, favoriteSongsListId, setFavoriteSongsIdList, setError}: Props) =>{
+    const {classes} = useStyles();
+
     return(
         <>
         {/*display loading texst incase info still loading*/}
@@ -22,9 +25,19 @@ const AllSongs:React.FC<Props>= ({songsList,  isSongsLoading, error, favoriteSon
 
         {/*display songs*/}
         {!isSongsLoading && !error && (
-            <SongsTable songsList={songsList} favoriteSongsListId={favoriteSongsListId} setFavoriteSongsIdList={setFavoriteSongsIdList} setError={setError}/>
+            <div className={classes.container}>
+                <div className={classes.title} lang="he" dir="rtl">
+                    <h2>כל השירים</h2>
+                </div>
+                <div className={classes.listContainer}>
+                    <SongsTable songsList={songsList} favoriteSongsListId={favoriteSongsListId} setFavoriteSongsIdList={setFavoriteSongsIdList} setError={setError}/>
+                </div>
+                
+            </div>
+            
         )}
     </>
     )
 }
 export default AllSongs
+
