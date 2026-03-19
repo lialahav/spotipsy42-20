@@ -35,6 +35,11 @@ const useStyles = makeStyles()({
     },
     sliderContainer: {
         width: '97%',
+    },
+    placeHolder: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 
 
