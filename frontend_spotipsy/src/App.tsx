@@ -116,7 +116,8 @@ const App: React.FC = () => {
           <Sidebar onChange={(value) => {setCurrentPage(value)}}/>
         </div>
 
-        <Player song={{ id:'example',name:'example', artist:'example', album:'example'}}/>
+        <Player setError = {setError} currentSong ={currentSong} setCurrentSong = {setCurrentSong} 
+          isPlaying = {isPlaying} setIsPlaying = {setIsPlaying} queue = {queue} setQueue = {setQueue}/>
       </div>
     </ThemeProvider>
   )

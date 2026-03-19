@@ -5,45 +5,70 @@ import React, { useState, useEffect } from 'react';
 import { Button, Slider } from '@mui/material';
 
 interface Props{
-    song:Song;
+    setError: React.Dispatch<React.SetStateAction<string>>;
+    currentSong: Song | undefined;
+    setCurrentSong: (value: Song) => void;
+    isPlaying: boolean;
+    setIsPlaying: (value: boolean) => void;
+    queue: Song[];
+    setQueue: (value: Song[]) => void;
 }
 
 const Player: React.FC<Props> = (props:Props) => {
     const { classes } = useStyles();
+    let audioPath = ''
     //todo: change later to a set state that the app sends
-    const [isPlaying, setisPlaying] = useState<boolean>(false);
-    
+    if(props.currentSong != undefined){
+        audioPath = new URL(`./songs/${props.currentSong.id}.mp3`, import.meta.url).href;
+    }
     const startStopSong = (id:string) =>{
-        if(isPlaying){
-            setisPlaying(false)
+        if(props.isPlaying){
+            props.setIsPlaying(false)
         }
         else{
-            setisPlaying(true)
+            props.setIsPlaying(true)
         }
     }
     return (
         <div className={classes.container}>
-            <div className={classes.infoContainer}>
-                <span className={classes.songName}>{ props.song.name }</span>
-                <span className={classes.singerName}>{ props.song.artist }</span>
-            </div>
-            <div className={classes.buttonsContainer}>
-                <SkipPrevious></SkipPrevious>
-                <Button onClick={() =>startStopSong(props.song.id)}>
-                    {!isPlaying &&
-                    <PlayArrow></PlayArrow>
-                    }
-                    {isPlaying &&
-                    <PauseSharp></PauseSharp>
-                    }
-                </Button>
-                <SkipNext></SkipNext>
-            </div>
-            <div className={classes.sliderContainer}>
-                <Slider size="small">
+            {props.currentSong != undefined &&
+            <div>
+                <div className={classes.infoContainer}>
+                    <span className={classes.songName}>{ props.currentSong.name }</span>
+                    <span className={classes.singerName}>{ props.currentSong.artist }</span>
+                </div>
+                    <div className={classes.buttonsContainer}>
+                        <SkipPrevious></SkipPrevious>
+                        <Button onClick={() =>startStopSong(props.currentSong.id)}>
+                            {!props.isPlaying &&
+                            <PlayArrow></PlayArrow>
+                            }
+                            {props.isPlaying &&
+                            <div>
+                                <PauseSharp></PauseSharp>
+                                <audio controls>
+                                    <source src={audioPath} type='audio/mpeg'/>
+                                </audio>
+                            </div>
 
-                </Slider>
-            </div>
+                            }
+                        </Button>
+                        <SkipNext></SkipNext>
+                    </div>
+                    <div className={classes.sliderContainer}>
+                        <Slider size="small">
+
+                        </Slider>
+                    </div>
+                </div>
+                }
+                {props.currentSong == undefined &&
+                    <div className={classes.infoContainer}>
+                        <span className={classes.songName}>undefined</span>
+                        <span className={classes.singerName}>undefined</span>
+                    </div>
+                }
+            
         </div>
     )
 }
