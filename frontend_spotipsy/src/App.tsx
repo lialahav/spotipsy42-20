@@ -24,7 +24,7 @@ const App: React.FC = () => {
 
   // Manage of music
   const [currentSong, setCurrentSong] = useState<Song | undefined>(undefined);
-  const [isPlaying, setIsPlaying] = useState<Boolean>(false);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [queue, setQueue] = useState<Song[]>([]);
   const [currentTime, setCurrentTime] = useState<Number>(0);
   const [duration, setDuration] = useState<Number>(0);

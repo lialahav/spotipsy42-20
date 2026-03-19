@@ -9,12 +9,17 @@ interface props {
     setError: React.Dispatch<React.SetStateAction<string>>;
     playlistsList: Playlist[];
     setPlayListsList: (value:Playlist[]) => void;
-
+    currentSong: Song | undefined;
+    setCurrentSong: (value: Song) => void;
+    isPlaying: boolean;
+    setIsPlaying: (value: boolean) => void;
+    queue: Song[];
+    setQueue: (value: Song[]) => void;
 }
 
-const FavoritePage: React.FC<props> = ({ favoriteSongsListId, songsList, setFavoriteSongsIdList, setError, playlistsList, setPlayListsList}: props) => {
+const FavoritePage: React.FC<props> = (props: props) => {
     const {classes} = useStyles();
-    const favoriteSongsList: Song[] = songsList.filter((song) => favoriteSongsListId.includes(song.id) )
+    const favoriteSongsList: Song[] = props.songsList.filter((song) => props.favoriteSongsListId.includes(song.id) )
 
     return (
         <div className={classes.container}>
@@ -22,8 +27,9 @@ const FavoritePage: React.FC<props> = ({ favoriteSongsListId, songsList, setFavo
                 <h2>המועדפים שלי</h2>
             </div>
             <div className={classes.listContainer}>
-                <SongsTable songsList={favoriteSongsList} favoriteSongsListId={favoriteSongsListId} setFavoriteSongsIdList={setFavoriteSongsIdList} setError={setError}
-                    playlistsList = {playlistsList} setPlayListsList= {setPlayListsList}
+                <SongsTable songsList={favoriteSongsList} favoriteSongsListId={props.favoriteSongsListId} setFavoriteSongsIdList={props.setFavoriteSongsIdList} setError={props.setError}
+                    playlistsList = {props.playlistsList} setPlayListsList= {props.setPlayListsList} currentSong={props.currentSong} setCurrentSong={props.setCurrentSong} isPlaying={props.isPlaying} 
+                        setIsPlaying={props.setIsPlaying} queue = {props.queue} setQueue={props.setQueue}
                 />
             </div>
                 

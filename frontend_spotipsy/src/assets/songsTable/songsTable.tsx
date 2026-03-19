@@ -23,7 +23,7 @@ interface Props{
     setError: React.Dispatch<React.SetStateAction<string>>;
     playlistsList: Playlist[];
     setPlayListsList: (value:Playlist[]) => void;
-    currentSong: Song;
+    currentSong: Song | undefined;
     setCurrentSong: (value: Song) => void;
     isPlaying: boolean;
     setIsPlaying: (value: boolean) => void;

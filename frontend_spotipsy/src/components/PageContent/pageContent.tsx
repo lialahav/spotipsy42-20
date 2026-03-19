@@ -14,7 +14,7 @@ interface props {
     error: string;
     setFavoriteSongsIdList:React.Dispatch<React.SetStateAction<string[]>>;
     setError: React.Dispatch<React.SetStateAction<string>>;
-    currentSong: Song;
+    currentSong: Song | undefined;
     setCurrentSong: (value: Song) => void;
     isPlaying: boolean;
     setIsPlaying: (value: boolean) => void;
@@ -30,18 +30,23 @@ const PageContent: React.FC<props> = (props: props) => {
 
     return (
         <div className={classes.container}>
-            {props.currentPage == 'songs' && <AllSongs songsList ={props.songsList} isSongsLoading= {props.isSongsLoading} error = {props.error}
-             favoriteSongsListId={props.favoriteSongsListId} setFavoriteSongsIdList={props.setFavoriteSongsIdList} setError={props.setError}
-             playlistsList ={props.playlistsList} setPlayListsList={props.setPlayListsList}
+            {props.currentPage == 'songs' && <AllSongs songsList ={props.songsList} 
+                isSongsLoading= {props.isSongsLoading} error = {props.error} favoriteSongsListId={props.favoriteSongsListId}
+                setFavoriteSongsIdList={props.setFavoriteSongsIdList} setError={props.setError} playlistsList ={props.playlistsList}
+                setPlayListsList={props.setPlayListsList} currentSong={props.currentSong} setCurrentSong={props.setCurrentSong} 
+                isPlaying={props.isPlaying} setIsPlaying={props.setIsPlaying} queue = {props.queue} setQueue={props.setQueue}
             />}
 
             {props.currentPage == 'playlists' && <PlaylistsPage playlistsList = {props.playlistsList} 
             setPlayListsList = {props.setPlayListsList} songsList= {props.songsList} favoriteSongsListId={props.favoriteSongsListId} setFavoriteSongsIdList={props.setFavoriteSongsIdList} 
-            setError={props.setError}
+            setError={props.setError} currentSong={props.currentSong} setCurrentSong={props.setCurrentSong} 
+                isPlaying={props.isPlaying} setIsPlaying={props.setIsPlaying} queue = {props.queue} setQueue={props.setQueue}
             />}
 
             {props.currentPage == 'favorites' && <FavoritePage songsList = {props.songsList} favoriteSongsListId = {props.favoriteSongsListId} 
-            setFavoriteSongsIdList={props.setFavoriteSongsIdList} setError={props.setError} playlistsList = {props.playlistsList} setPlayListsList ={props.setPlayListsList}/>} 
+            setFavoriteSongsIdList={props.setFavoriteSongsIdList} setError={props.setError} playlistsList = {props.playlistsList} 
+            setPlayListsList ={props.setPlayListsList} currentSong={props.currentSong} setCurrentSong={props.setCurrentSong} 
+            isPlaying={props.isPlaying} setIsPlaying={props.setIsPlaying} queue = {props.queue} setQueue={props.setQueue}/>} 
         </div>
     )   
 }
