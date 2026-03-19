@@ -1,11 +1,13 @@
 import useStyles from "./playerStyles";
-import type { Song } from "../../assets/types"
-import { PlayArrow,  SkipNext, SkipPrevious, PauseSharp} from '@mui/icons-material'
-import React, { useState, useEffect } from 'react'
-import { Button } from '@mui/material'
+import type { Song } from "../../assets/types";
+import { PlayArrow,  SkipNext, SkipPrevious, PauseSharp} from '@mui/icons-material';
+import React, { useState, useEffect } from 'react';
+import { Button } from '@mui/material';
+
 interface Props{
     song:Song;
 }
+
 const Player: React.FC<Props> = (props:Props) => {
     const { classes } = useStyles();
     //todo: change later to a set state that the app sends
@@ -21,8 +23,10 @@ const Player: React.FC<Props> = (props:Props) => {
     }
     return (
         <div className={classes.container}>
-            <p className={classes.p}>{ props.song.name }</p>
-            <p className={classes.p}>{ props.song.artist }</p>
+            <div className={classes.infoContainer}>
+                <span className={classes.songName}>{ props.song.name }</span>
+                <span className={classes.singerName}>{ props.song.artist }</span>
+            </div>
             <div className={classes.buttonsContainer}>
                 <SkipPrevious></SkipPrevious>
                 <Button onClick={() =>startStopSong(props.song.id)}>
