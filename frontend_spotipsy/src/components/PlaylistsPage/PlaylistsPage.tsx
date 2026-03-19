@@ -51,7 +51,7 @@ const PlaylistsPage: React.FC<props> = ({ playlistsList, setPlayListsList, songs
                     <div className={classes.listContainer}>
                         
                         {<SongsTable songsList={songsList.filter(song => currentPlaylist.songIds.includes(song.id))} favoriteSongsListId={favoriteSongsListId}
-                         setFavoriteSongsIdList={setFavoriteSongsIdList} setError={setError}/>}
+                         setFavoriteSongsIdList={setFavoriteSongsIdList} setError={setError} playlistsList = {playlistsList} setPlayListsList= {setPlayListsList}/>}
                     </div>
 
                 </div>
