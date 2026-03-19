@@ -23,6 +23,12 @@ interface Props{
     setError: React.Dispatch<React.SetStateAction<string>>;
     playlistsList: Playlist[];
     setPlayListsList: (value:Playlist[]) => void;
+    currentSong: Song;
+    setCurrentSong: (value: Song) => void;
+    isPlaying: boolean;
+    setIsPlaying: (value: boolean) => void;
+    queue: Song[];
+    setQueue: (value: Song[]) => void;
 }
 
 const SongsTable = (props:Props) =>{
@@ -53,6 +59,13 @@ const SongsTable = (props:Props) =>{
         else{
             handleAddPostRequest(id)
         }
+    }
+
+    const handlePlayer = (song: Song) => {
+        props.setQueue(props.songsList);
+        props.setCurrentSong(song);
+        props.setIsPlaying(true);
+        
     }
 
     /**
@@ -129,7 +142,7 @@ const SongsTable = (props:Props) =>{
         <Paper style={{maxHeight: 600, overflow: 'auto'}}>
         <List className={classes.songsContainer}>
             {props.songsList.map((song, index) =>(
-            <ListItem divider key={index} sx={{ display: 'flex', flexDirection: 'row', padding: 0}}>
+            <ListItem onClick={() => handlePlayer(song)} divider key={index} sx={{ display: 'flex', flexDirection: 'row', padding: 0}}>
                 <ListItemIcon>
                 <PlayArrow style={{ color: theme.palette.primary.main }}></PlayArrow>
                 </ListItemIcon>
