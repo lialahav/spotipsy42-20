@@ -1,5 +1,5 @@
 import SongsTable from "../../assets/songsTable/songsTable";
-import type { Song} from "../../assets/types";
+import type { Song, Playlist} from "../../assets/types";
 import useStyles from "./FavoritePageStyles";
 
 interface props {
@@ -7,9 +7,12 @@ interface props {
     songsList: Song[];
     setFavoriteSongsIdList:React.Dispatch<React.SetStateAction<string[]>>;
     setError: React.Dispatch<React.SetStateAction<string>>;
+    playlistsList: Playlist[];
+    setPlayListsList: (value:Playlist[]) => void;
+
 }
 
-const FavoritePage: React.FC<props> = ({ favoriteSongsListId, songsList, setFavoriteSongsIdList, setError}: props) => {
+const FavoritePage: React.FC<props> = ({ favoriteSongsListId, songsList, setFavoriteSongsIdList, setError, playlistsList, setPlayListsList}: props) => {
     const {classes} = useStyles();
     const favoriteSongsList: Song[] = songsList.filter((song) => favoriteSongsListId.includes(song.id) )
 
@@ -19,7 +22,9 @@ const FavoritePage: React.FC<props> = ({ favoriteSongsListId, songsList, setFavo
                 <h2>המועדפים שלי</h2>
             </div>
             <div className={classes.listContainer}>
-                <SongsTable songsList={favoriteSongsList} favoriteSongsListId={favoriteSongsListId} setFavoriteSongsIdList={setFavoriteSongsIdList} setError={setError}/>
+                <SongsTable songsList={favoriteSongsList} favoriteSongsListId={favoriteSongsListId} setFavoriteSongsIdList={setFavoriteSongsIdList} setError={setError}
+                    playlistsList = {playlistsList} setPlayListsList= {setPlayListsList}
+                />
             </div>
                 
         </div>
