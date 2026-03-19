@@ -4,12 +4,15 @@
     "name": "pjhiho",
     "songIds": [
       "6",
-      "8"
+      "8",
+      "1"
     ]
   },
   {
     "id": "481ae748-22bd-4404-932d-0d65a2c15d9e",
     "name": "dgb",
-    "songIds": []
+    "songIds": [
+      "1"
+    ]
   }
 ]

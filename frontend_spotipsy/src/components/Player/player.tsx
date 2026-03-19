@@ -1,50 +1,95 @@
 import useStyles from "./playerStyles";
 import type { Song } from "../../assets/types";
 import { PlayArrow,  SkipNext, SkipPrevious, PauseSharp} from '@mui/icons-material';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button, Slider } from '@mui/material';
 
 interface Props{
-    song:Song;
+    setError: React.Dispatch<React.SetStateAction<string>>;
+    currentSong: Song | undefined;
+    setCurrentSong: (value: Song) => void;
+    isPlaying: boolean;
+    setIsPlaying: (value: boolean) => void;
+    queue: Song[];
+    setQueue: (value: Song[]) => void;
 }
 
 const Player: React.FC<Props> = (props:Props) => {
     const { classes } = useStyles();
+
+    const audioRef = useRef<HTMLAudioElement | null>(null);
+
+    let audioPath = ''
     //todo: change later to a set state that the app sends
-    const [isPlaying, setisPlaying] = useState<boolean>(false);
-    
-    const startStopSong = (id:string) =>{
-        if(isPlaying){
-            setisPlaying(false)
+    if(props.currentSong != undefined){
+        audioPath = new URL(`./songs/${props.currentSong.id}.mp3`, import.meta.url).href;
+    }
+
+    const startStopSong = () =>{
+        if(props.isPlaying){
+            props.setIsPlaying(false)
         }
         else{
-            setisPlaying(true)
+            props.setIsPlaying(true)
         }
     }
-    return (
-        <div className={classes.container}>
-            <div className={classes.infoContainer}>
-                <span className={classes.songName}>{ props.song.name }</span>
-                <span className={classes.singerName}>{ props.song.artist }</span>
-            </div>
-            <div className={classes.buttonsContainer}>
-                <SkipPrevious></SkipPrevious>
-                <Button onClick={() =>startStopSong(props.song.id)}>
-                    {!isPlaying &&
-                    <PlayArrow></PlayArrow>
-                    }
-                    {isPlaying &&
-                    <PauseSharp></PauseSharp>
-                    }
-                </Button>
-                <SkipNext></SkipNext>
-            </div>
-            <div className={classes.sliderContainer}>
-                <Slider size="small">
 
-                </Slider>
-            </div>
-        </div>
+    useEffect(() => {
+        if (!audioRef.current) return;
+
+        if (props.isPlaying) {
+            audioRef.current.play();
+        } else {
+            audioRef.current.pause();
+        }
+    }, [props.isPlaying]);
+
+    useEffect(() => {
+        if (!audioRef.current) return;
+
+        audioRef.current.load();
+
+        if (props.isPlaying)
+            audioRef.current.play();
+    }, [props.currentSong]);
+
+
+    return (
+        <>
+            {props.currentSong != undefined && (
+                <div className={classes.container}>
+                    <div className={classes.infoContainer}>
+                        <span className={classes.songName}>{ props.currentSong.name }</span>
+                        <span className={classes.singerName}>{ props.currentSong.artist }</span>
+                    </div>
+                    <div className={classes.buttonsContainer}>
+                        <SkipPrevious />
+
+                        <Button onClick={() =>startStopSong()}>
+                            {!props.isPlaying && <PlayArrow />}
+                            {props.isPlaying && <PauseSharp />}
+                                
+                        </Button>
+                        
+                        <SkipNext />
+                    </div>
+
+                    <audio ref={audioRef}>
+                        <source src={audioPath} type='audio/mpeg'/>
+                    </audio>
+
+                    <div className={classes.sliderContainer}>
+                        <Slider size="small" />
+                    </div>
+                </div>
+            )}
+                {props.currentSong == undefined &&
+                    <div className={classes.placeHolder}>
+                        <span>player</span>
+                    </div>
+                }
+        </>
+            
     )
 }
 
