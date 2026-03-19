@@ -12,6 +12,7 @@ import { Button , IconButton, Menu, MenuItem} from '@mui/material'
 import { useState } from 'react';
 import type { Playlist } from '../types';
 import useStyles from './songsTableStyles';
+import theme from '../../theme';
 
 
 
@@ -130,7 +131,7 @@ const SongsTable = (props:Props) =>{
             {props.songsList.map((song, index) =>(
             <ListItem divider key={index} sx={{ display: 'flex', flexDirection: 'row', padding: 0}}>
                 <ListItemIcon>
-                <PlayArrow style={{ color: '#9c27b0' }}></PlayArrow>
+                <PlayArrow style={{ color: theme.palette.primary.main }}></PlayArrow>
                 </ListItemIcon>
                     <ListItemText 
                     primary={`${song.name} ${song.artist}` }
