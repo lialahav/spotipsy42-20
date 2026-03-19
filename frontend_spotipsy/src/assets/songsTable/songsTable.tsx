@@ -159,7 +159,6 @@ const SongsTable = (props:Props) =>{
                         <FavoriteBorder></FavoriteBorder>
                     }
                 </Button>
-                <Add></Add>
             </ListItem>
           ))}
         </List>

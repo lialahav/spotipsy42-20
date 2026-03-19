@@ -5,9 +5,9 @@ const useStyles = makeStyles()({
         backgroundColor: 'rgba(32, 32, 32, 1)',
         flexDirection: 'column',
         width: '100%',
-        height: '14%',
+        height: '13%',
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'space-evenly',
         alignItems: 'center',
         borderTop: '1px solid rgba(49, 49, 49, 1)',
 
@@ -32,6 +32,9 @@ const useStyles = makeStyles()({
         justifyContent: 'center',
         alignItems: 'center',
         
+    },
+    sliderContainer: {
+        width: '97%'
     }
 
 
