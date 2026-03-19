@@ -73,7 +73,7 @@ const SongsTable = (props:Props) =>{
     
     return(
     <>
-        <Paper style={{maxHeight: 600, overflow: 'auto'}}>
+        <Paper style={{maxHeight: 500, overflow: 'auto'}}>
         <List className='songsContainer'>
             {props.songsList.map((song, index) =>(
             <ListItem divider key={index} sx={{ display: 'flex', flexDirection: 'row', padding: 0 }}>
