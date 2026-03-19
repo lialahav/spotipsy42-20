@@ -1,7 +1,7 @@
 import useStyles from "./playerStyles";
 import type { Song } from "../../assets/types";
 import { PlayArrow,  SkipNext, SkipPrevious, PauseSharp} from '@mui/icons-material';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button, Slider } from '@mui/material';
 
 interface Props{
@@ -16,12 +16,16 @@ interface Props{
 
 const Player: React.FC<Props> = (props:Props) => {
     const { classes } = useStyles();
+
+    const audioRef = useRef<HTMLAudioElement | null>(null);
+
     let audioPath = ''
     //todo: change later to a set state that the app sends
     if(props.currentSong != undefined){
         audioPath = new URL(`./songs/${props.currentSong.id}.mp3`, import.meta.url).href;
     }
-    const startStopSong = (id:string) =>{
+
+    const startStopSong = () =>{
         if(props.isPlaying){
             props.setIsPlaying(false)
         }
@@ -29,47 +33,53 @@ const Player: React.FC<Props> = (props:Props) => {
             props.setIsPlaying(true)
         }
     }
+
+    useEffect(() => {
+        if (!audioRef.current) return;
+
+        if (props.isPlaying) {
+            audioRef.current.play();
+        } else {
+            audioRef.current.pause();
+        }
+    }, [props.isPlaying, props.currentSong]);
+
+
     return (
-        <div className={classes.container}>
-            {props.currentSong != undefined &&
-            <div>
-                <div className={classes.infoContainer}>
-                    <span className={classes.songName}>{ props.currentSong.name }</span>
-                    <span className={classes.singerName}>{ props.currentSong.artist }</span>
-                </div>
+        <>
+            {props.currentSong != undefined && (
+                <div className={classes.container}>
+                    <div className={classes.infoContainer}>
+                        <span className={classes.songName}>{ props.currentSong.name }</span>
+                        <span className={classes.singerName}>{ props.currentSong.artist }</span>
+                    </div>
                     <div className={classes.buttonsContainer}>
-                        <SkipPrevious></SkipPrevious>
-                        <Button onClick={() =>startStopSong(props.currentSong.id)}>
-                            {!props.isPlaying &&
-                            <PlayArrow></PlayArrow>
-                            }
-                            {props.isPlaying &&
-                            <div>
-                                <PauseSharp></PauseSharp>
-                                <audio controls>
-                                    <source src={audioPath} type='audio/mpeg'/>
-                                </audio>
-                            </div>
+                        <SkipPrevious />
 
-                            }
+                        <Button onClick={() =>startStopSong()}>
+                            {!props.isPlaying && <PlayArrow />}
+                            {props.isPlaying && <PauseSharp />}
+                                
                         </Button>
-                        <SkipNext></SkipNext>
+                        
+                        <SkipNext />
                     </div>
-                    <div className={classes.sliderContainer}>
-                        <Slider size="small">
 
-                        </Slider>
+                    <audio ref={audioRef}>
+                        <source src={audioPath} type='audio/mpeg'/>
+                    </audio>
+
+                    <div className={classes.sliderContainer}>
+                        <Slider size="small" />
                     </div>
                 </div>
-                }
+            )}
                 {props.currentSong == undefined &&
                     <div className={classes.infoContainer}>
-                        <span className={classes.songName}>undefined</span>
-                        <span className={classes.singerName}>undefined</span>
                     </div>
                 }
+        </>
             
-        </div>
     )
 }
 
