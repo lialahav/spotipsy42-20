@@ -42,7 +42,16 @@ const Player: React.FC<Props> = (props:Props) => {
         } else {
             audioRef.current.pause();
         }
-    }, [props.isPlaying, props.currentSong]);
+    }, [props.isPlaying]);
+
+    useEffect(() => {
+        if (!audioRef.current) return;
+
+        audioRef.current.load();
+
+        if (props.isPlaying)
+            audioRef.current.play();
+    }, [props.currentSong]);
 
 
     return (
@@ -75,7 +84,8 @@ const Player: React.FC<Props> = (props:Props) => {
                 </div>
             )}
                 {props.currentSong == undefined &&
-                    <div className={classes.infoContainer}>
+                    <div className={classes.placeHolder}>
+                        <span>player</span>
                     </div>
                 }
         </>

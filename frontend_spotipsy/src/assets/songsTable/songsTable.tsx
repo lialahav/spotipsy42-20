@@ -141,7 +141,13 @@ const SongsTable = (props:Props) =>{
         <Paper style={{maxHeight: 700, overflow: 'auto'}}>
         <List className={classes.songsContainer}>
             {props.songsList.map((song, index) =>(
-            <ListItem onClick={() => handlePlayer(song)} divider key={index} sx={{ display: 'flex', flexDirection: 'row', padding: 0}}>
+            <ListItem onClick={() => handlePlayer(song)} divider key={index} sx={{ display: 'flex', flexDirection: 'row', padding: 0,
+                backgroundColor: (() => {
+                    if (props.currentSong != undefined && props.currentSong.id == song.id) {
+                        return "rgba(100, 57, 94, 1)"
+                    }
+                })
+             }}>
 
                 <PlayArrow style={{ color: theme.palette.primary.main }}></PlayArrow>
 
