@@ -22,6 +22,13 @@ const App: React.FC = () => {
   const [error, setError] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<string>('songs');
 
+  // Manage of music
+  const [currentSong, setCurrentSong] = useState<Song | undefined>(undefined);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [queue, setQueue] = useState<Song[]>([]);
+  const [currentTime, setCurrentTime] = useState<Number>(0);
+  const [duration, setDuration] = useState<Number>(0);
+
 
 
   /**
@@ -104,6 +111,7 @@ const App: React.FC = () => {
         <div className={classes.mainSection}>
           <PageContent currentPage = {currentPage} songsList = {songsList} favoriteSongsListId = {favoriteSongsListId} playlistsList ={playlistsList}
           setPlayListsList = {setPlayListsList} isSongsLoading = {isSongsLoading} error = {error} setFavoriteSongsIdList={setFavoriteSongsIdList} setError = {setError}
+          currentSong ={currentSong} setCurrentSong = {setCurrentSong} isPlaying = {isPlaying} setIsPlaying = {setIsPlaying} queue = {queue} setQueue = {setQueue}
           />
           <Sidebar onChange={(value) => {setCurrentPage(value)}}/>
         </div>

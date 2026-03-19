@@ -14,9 +14,15 @@ interface props {
     favoriteSongsListId: string[];
     setFavoriteSongsIdList:React.Dispatch<React.SetStateAction<string[]>>;
     setError: React.Dispatch<React.SetStateAction<string>>;
+    currentSong: Song | undefined;
+    setCurrentSong: (value: Song) => void;
+    isPlaying: boolean;
+    setIsPlaying: (value: boolean) => void;
+    queue: Song[];
+    setQueue: (value: Song[]) => void;
 }
 
-const PlaylistsPage: React.FC<props> = ({ playlistsList, setPlayListsList, songsList, favoriteSongsListId, setFavoriteSongsIdList ,setError}: props) => {
+const PlaylistsPage: React.FC<props> = (props: props) => {
     const {classes} = useStyles();
     const [currentPlaylist, setCurrentPlaylist] = useState<Playlist | false>(false);
 
@@ -27,12 +33,12 @@ const PlaylistsPage: React.FC<props> = ({ playlistsList, setPlayListsList, songs
                 <div className={classes.container}>
                     <div className={classes.title} lang="he" dir="rtl"> 
                         <h2>הפלייליסטים שלי</h2>
-                        <AddPlaylistButton setPlayListsList= {setPlayListsList} playlistsList={playlistsList} />
+                        <AddPlaylistButton setPlayListsList= {props.setPlayListsList} playlistsList={props.playlistsList} />
                     </div>
                     <div className={classes.listContainer}>
                         
                         <List>
-                            {playlistsList.map(playlist => <PlaylistItem key={playlist.id} name= {playlist.name} songsCount = {playlist.songIds.length} 
+                            {props.playlistsList.map(playlist => <PlaylistItem key={playlist.id} name= {playlist.name} songsCount = {playlist.songIds.length} 
                             onChange={() => setCurrentPlaylist(playlist)}  />)}
                         </List>
                     </div>
@@ -50,8 +56,10 @@ const PlaylistsPage: React.FC<props> = ({ playlistsList, setPlayListsList, songs
                     </div>
                     <div className={classes.listContainer}>
                         
-                        {<SongsTable songsList={songsList.filter(song => currentPlaylist.songIds.includes(song.id))} favoriteSongsListId={favoriteSongsListId}
-                         setFavoriteSongsIdList={setFavoriteSongsIdList} setError={setError} playlistsList = {playlistsList} setPlayListsList= {setPlayListsList}/>}
+                        {<SongsTable songsList={props.songsList.filter(song => currentPlaylist.songIds.includes(song.id))} favoriteSongsListId={props.favoriteSongsListId}
+                            setFavoriteSongsIdList={props.setFavoriteSongsIdList} setError={props.setError} playlistsList = {props.playlistsList} setPlayListsList= {props.setPlayListsList}
+                            currentSong={props.currentSong} setCurrentSong={props.setCurrentSong} isPlaying={props.isPlaying} 
+                            setIsPlaying={props.setIsPlaying} queue = {props.queue} setQueue={props.setQueue}/>}
                     </div>
 
                 </div>
