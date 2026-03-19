@@ -77,9 +77,7 @@ const SongsTable = (props:Props) =>{
         <List className='songsContainer'>
             {props.songsList.map((song, index) =>(
             <ListItem divider key={index} sx={{ display: 'flex', flexDirection: 'row', padding: 0 }}>
-                <ListItemIcon>
-                <PlayArrow></PlayArrow>
-                </ListItemIcon>
+                <PlayArrow style={{ color: '#9c27b0' }}></PlayArrow>
                     <ListItemText 
                     primary={`${song.name} ${song.artist}` }
                     sx={{ margin: 0 }}/>
